@@ -1,38 +1,34 @@
-#docker/php
+ARG PHP_VERSION
 
-FROM php:8.2-fpm-buster
+# Use the official PHP FPM Alpine image
+FROM php:8.2-fpm-alpine
 
-RUN apt-get clean
+# Install necessary packages
+RUN apk update && \
+    apk add --no-cache \
+        freetype-dev \
+        libjpeg-turbo-dev \
+        libpng-dev \
+        git \
+        nodejs \
+        npm \
+        bash \
+        postgresql-dev \
+        libsodium-dev \
+        libzip-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install pdo_pgsql sodium zip
 
-RUN apt-get update
+# Clean up package cache
+RUN rm -rf /var/cache/apk/*
 
-RUN apt-get install -y \
-    gnupg \
-    g++ \
-    procps \
-    openssl \
-    git \
-    unzip \
-    zlib1g-dev \
-    libzip-dev \
-    libfreetype6-dev \
-    libpng-dev \
-    libjpeg-dev \
-    libicu-dev  \
-    libonig-dev \
-    libxslt1-dev \
-    acl \
-    && echo 'alias sf="php bin/console"' >> ~/.bashrc
-
-RUN docker-php-ext-configure gd --with-jpeg --with-freetype 
-
-RUN apt-get install -y zlib1g-dev libpq-dev git libicu-dev libxml2-dev libzip-dev zip \
-    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-    && docker-php-ext-install pdo pdo_pgsql pgsql \
-    && docker-php-ext-install zip xml
-
+# Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN composer self-update
+# Install Symfony CLI
+RUN curl -sS https://get.symfony.com/cli/installer | bash && \
+    mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
 
-WORKDIR /var/www/symfony
+# Set working directory
+WORKDIR /var/www
