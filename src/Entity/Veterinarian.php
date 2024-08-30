@@ -18,7 +18,7 @@ class Veterinarian
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column]
+    #[ORM\Column(unique: true)]
     private ?int $crmv = null;
 
     /**

@@ -15,7 +15,7 @@ class Cow
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?float $milÃkProduction = null;
+    private ?float $milkProduction = null;
 
     #[ORM\Column]
     private ?float $weeklyFeed = null;
@@ -35,14 +35,14 @@ class Cow
         return $this->id;
     }
 
-    public function getMilÃkProduction(): ?float
+    public function getMilkProduction(): ?float
     {
-        return $this->milÃkProduction;
+        return $this->milkProduction;
     }
 
-    public function setMilÃkProduction(float $milÃkProduction): static
+    public function setMilkProduction(float $milkProduction): static
     {
-        $this->milÃkProduction = $milÃkProduction;
+        $this->milkProduction = $milkProduction;
 
         return $this;
     }
