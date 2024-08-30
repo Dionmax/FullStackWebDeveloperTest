@@ -20,16 +20,16 @@ final class Version20240829233302 extends AbstractMigration
     public function up(Schema $schema): void
     {
         # Farm
-        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (1, 'Bosco and Sons', 395.61, 'Harvey Gitthouse');");
-        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (2, 'Grady Group', 333.79, 'Therine Wilcott');");
-        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (3, 'Pouros Inc', 306.61, 'Keen Brazenor');");
-        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (4, 'Jerde-Dickinson', 100.63, 'Darill Schruyer');");
-        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (5, 'Hoppe-Herman', 211.72, 'Benji Castelletto');");
-        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (6, 'Johnson and Sons', 537.88, 'Corenda Izzett');");
-        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (7, 'Ritchie, Bednar and Johnson', 900.53, 'Daisey Karlolak');");
-        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (8, 'Sporer and Sons', 679.22, 'Tammie Checcuzzi');");
-        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (9, 'Simonis and Sons', 931.12, 'Mitchell Wyldish');");
-        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (10, 'Murazik-Jaskolski', 989.33, 'Willi Exton');");
+        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (1, 'Bosco and Sons', 5.78, 'Harvey Gitthouse');");
+        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (2, 'Grady Group', 4.84, 'Therine Wilcott');");
+        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (3, 'Pouros Inc', 5.67, 'Keen Brazenor');");
+        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (4, 'Jerde-Dickinson', 5.39, 'Darill Schruyer');");
+        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (5, 'Hoppe-Herman', 4.34, 'Benji Castelletto');");
+        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (6, 'Johnson and Sons', 5.28, 'Corenda Izzett');");
+        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (7, 'Ritchie, Bednar and Johnson', 6.28, 'Daisey Karlolak');");
+        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (8, 'Sporer and Sons', 5.89, 'Tammie Checcuzzi');");
+        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (9, 'Simonis and Sons', 6.39, 'Mitchell Wyldish');");
+        $this->addSql("INSERT INTO farm (id, name, size, manager) VALUES (10, 'Murazik-Jaskolski', 5.73, 'Willi Exton');");
 
         # Veterinarian
         $this->addSql("INSERT INTO veterinarian  (id, name, crmv) VALUES (1, 'Errol Massy', 411);");
@@ -1137,10 +1137,10 @@ final class Version20240829233302 extends AbstractMigration
 
         # Veternarian - Farm
 
-        for($i = 1; $i <= 10; $i++) {
-           for($j = 1; $j <= 10; $j++) {
-               $this->addSql("INSERT INTO farm_veterinarian (farm_id, veterinarian_id) VALUES ($i, $j + (($i - 1) * 10));");
-           }
+        for ($i = 1; $i <= 10; $i++) {
+            for ($j = 1; $j <= 10; $j++) {
+                $this->addSql("INSERT INTO farm_veterinarian (farm_id, veterinarian_id) VALUES ($i, $j + (($i - 1) * 10));");
+            }
         }
     }
 
