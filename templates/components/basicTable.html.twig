@@ -1,0 +1,18 @@
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            {% for header in headers %}
+                <th scope="col">{{ knp_pagination_sortable(pagination, '', '') }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in rows %}
+            <tr>
+                {% for cell in row %}
+                    <td>{{ cell }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

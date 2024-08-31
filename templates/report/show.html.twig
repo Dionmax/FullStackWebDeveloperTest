@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+{{ include('base.html.twig') }}
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Report</title>
+		{{ knp_pagination_rel_links(cowsForSlaughterPaginator) }}
+	</head>
+	<body>
+		<div class="container mt-5">
+			<h2 class="mb-4">Farm details</h2>
+
+			{# Cow for For Slaughter #}
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="count">
+							<h6>
+								Total cows for slaughter:
+								{{ cowsForSlaughterPaginator.getTotalItemCount }}
+							</h6>
+						</div>
+					</div>
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr>
+								<th scope="col">{{ knp_pagination_sortable(cowsForSlaughterPaginator, 'Id', 'c.id') }}</th>
+								<th scope="col">{{ knp_pagination_sortable(cowsForSlaughterPaginator, 'Milk Production', 'c.milkProduction') }}</th>
+								<th scope="col">{{ knp_pagination_sortable(cowsForSlaughterPaginator, 'Weekly Feed', 'c.weeklyFeed') }}</th>
+								<th scope="col">{{ knp_pagination_sortable(cowsForSlaughterPaginator, 'Weight', 'c.weight') }}</th>
+								<th scope="col">{{ knp_pagination_sortable(cowsForSlaughterPaginator, 'Age', 'c.birth') }}</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for cow in cowsForSlaughterPaginator %}
+								<tr>
+									<td>{{ cow.id }}</td>
+									<td>{{ cow.milkProduction }}</td>
+									<td>{{ cow.weeklyFeed }}</td>
+									<td>{{ cow.weight }}</td>
+									<td>{{ cow.birth }}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<div class="navigation">
+						{{ knp_pagination_render(cowsForSlaughterPaginator) }}
+					</div>
+				</div>
+			</div>
+			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+		</body>
+	</body>
+</html>

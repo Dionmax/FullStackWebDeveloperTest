@@ -16,28 +16,19 @@ class CowRepository extends ServiceEntityRepository
         parent::__construct($registry, Cow::class);
     }
 
-    //    /**
-    //     * @return Cow[] Returns an array of Cow objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Cow
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findAllAnimalsForSlaughter(int $farmId)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c.id', 'c.milkProduction', '((CURRENT_DATE() - c.birth) / 365) as birth', 'c.weeklyFeed', 'c.weight')
+            ->where('c.farm = :farmId')
+            ->setParameter('farmId', $farmId)
+            ->andWhere('
+                        ((CURRENT_DATE() - c.birth) >= 365 * 5 )
+                        OR (c.milkProduction < 40) 
+                        OR (c.milkProduction < 70 AND c.weeklyFeed / 7 > 50) 
+                        OR (c.weight / 14.688 > 18)
+                    ')
+            ->getQuery()
+            ->getDQL();
+    }
 }
