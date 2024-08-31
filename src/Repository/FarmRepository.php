@@ -20,18 +20,45 @@ class FarmRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('f')
             ->select('f.id', 'f.name')
-            ->join('f.cows', 'c')
+            ->leftJoin('f.cows', 'c', 'WITH', 'c.Slaughtered = false')
             ->addSelect('SUM(c.milkProduction) as mp')
             ->addSelect('SUM(c.weeklyFeed) as wf')
+            ->addSelect('COUNT(c.id) as cc')
             ->addSelect('
                         (SELECT COUNT(c1.id)
                         FROM App\Entity\Cow c1
                         WHERE c1.farm = f.id
                         AND (CURRENT_DATE() - c1.birth) <= 365
-                        AND c1.weeklyFeed > 500) as tc
+                        AND c1.weeklyFeed > 500
+                        AND c1.Slaughtered = false
+                        ) as tc
             ')
             ->groupBy('f.id')
             ->getQuery()
             ->getDQL();
+    }
+
+    public function findSlaughteredCows(int $farmId)
+    {
+        return $this->createQueryBuilder('f')
+            ->select('c.id', 'c.milkProduction', '((CURRENT_DATE() - c.birth) / 365) as birth', 'c.weeklyFeed', 'c.weight')
+            ->join('f.cows', 'c')
+            ->where('f.id = :farmId')
+            ->setParameter('farmId', $farmId)
+            ->andWhere('c.Slaughtered = true')
+            ->getQuery()
+            ->getDQL();
+    }
+
+    public function findCountCowsSlaughtered(int $farmId)
+    {
+        return $this->createQueryBuilder('f')
+            ->select('COUNT(c.id) as cc')
+            ->join('f.cows', 'c')
+            ->where('f.id = :farmId')
+            ->setParameter('farmId', $farmId)
+            ->andWhere('c.Slaughtered = true')
+            ->getQuery()
+            ->getResult();
     }
 }

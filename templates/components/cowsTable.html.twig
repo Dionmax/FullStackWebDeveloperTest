@@ -1,0 +1,47 @@
+<div class="container">
+	<div class="row">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th scope="col">{{ knp_pagination_sortable(paginationObject, 'Id', 'c.id') }}</th>
+					<th scope="col">{{ knp_pagination_sortable(paginationObject, 'Milk Production', 'c.milkProduction') }}</th>
+					<th scope="col">{{ knp_pagination_sortable(paginationObject, 'Weekly Feed', 'c.weeklyFeed') }}</th>
+					<th scope="col">{{ knp_pagination_sortable(paginationObject, 'Weight', 'c.weight') }}</th>
+					<th scope="col">{{ knp_pagination_sortable(paginationObject, 'Age', 'c.birth') }}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for cow in paginationObject %}
+					<tr>
+						<td>{{ cow.id }}</td>
+						<td>{{ cow.milkProduction }}</td>
+						<td>{{ cow.weeklyFeed }}</td>
+						<td>{{ cow.weight }}</td>
+						<td>{{ cow.birth }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="navigation">
+						{{ knp_pagination_render(paginationObject) }}
+					</div>
+				</div>
+				<div class="col">
+					<div class="d-flex flex-row-reverse bd-highlight">
+						{% if slaughter %}
+							<div class"align-self-center">
+								<button class="btn btn-primary" onclick="">
+									Slaughter All</button>
+								<button class="btn btn-primary disabled" onclick="">
+									Slaughter one</button>
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

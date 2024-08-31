@@ -30,6 +30,9 @@ class Cow
     #[ORM\JoinColumn(nullable: false)]
     private ?Farm $farm = null;
 
+    #[ORM\Column]
+    private ?bool $Slaughtered = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +94,18 @@ class Cow
     public function setFarm(?Farm $farm): static
     {
         $this->farm = $farm;
+
+        return $this;
+    }
+
+    public function isSlaughtered(): ?bool
+    {
+        return $this->Slaughtered;
+    }
+
+    public function setSlaughtered(bool $Slaughtered): static
+    {
+        $this->Slaughtered = $Slaughtered;
 
         return $this;
     }

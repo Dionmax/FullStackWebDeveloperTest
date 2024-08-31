@@ -38,18 +38,29 @@ class ReportController extends AbstractController
     #[Route('/report/{id}', name: 'report_show')]
     public function show(EntityManagerInterface $entityManager, $id,  PaginatorInterface $paginator, Request $request): Response
     {
-        $cowsForSlaughter = $entityManager->getRepository(Cow::class)->findAllAnimalsForSlaughter($id);
+        # Cows For Slaughter
+        $cowsForSlaughter = $entityManager->getRepository(Cow::class)->findAllCowsForSlaughter($id);
 
-        $query = $entityManager->createQuery($cowsForSlaughter)->setParameter('farmId', $id);
+        $cowsForSlaughterQuery = $entityManager->createQuery($cowsForSlaughter)->setParameter('farmId', $id);
 
         $cowsForSlaughterPaginator = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            5
+            $cowsForSlaughterQuery,
+            $request->query->getInt('cowsForSlaughterPage', 1),
+            5,
+            array(
+                'pageParameterName' => 'cowsForSlaughterPage',
+                'sortFieldParameterName' => 'sort1',
+                'sortDirectionParameterName' => 'direction1',
+            )
         );
+
+        # Cow Slaughtered
+        $slaughteredCows = $entityManager->getRepository(Farm::class)->findCountCowsSlaughtered($id);
 
         return $this->render('report/show.html.twig', [
             'cowsForSlaughterPaginator' => $cowsForSlaughterPaginator,
+            'slaughteredCows' => $slaughteredCows,
+            'farmId' => $id,
         ]);
     }
 }

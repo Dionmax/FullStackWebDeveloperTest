@@ -42,6 +42,7 @@
 						<th scope="col" {% if pagination.isSorted('f.name') %} class="sorted" {% endif %}>
 							{{ knp_pagination_sortable(pagination, 'Name', 'f.name') }}
 						</th>
+						<th scope="col">{{ knp_pagination_sortable(pagination, 'Cows', 'c.cc') }}</th>
 						<th scope="col">{{ knp_pagination_sortable(pagination, 'Milk produced per week (Total)', 'c.mp') }}</th>
 						<th scope="col">{{ knp_pagination_sortable(pagination, 'Feed required per week (Total)', 'c.wf') }}</th>
 						<th scope="col">{{ knp_pagination_sortable(pagination, 'Cow consuming more than 500 kg up to 1 year old', 'c.wf') }}</th>
@@ -55,6 +56,7 @@
 							</th>
 							<td>{{ farm.id }}</td>
 							<td>{{ farm.name }}</td>
+							<td>{{ farm.cc }}</td>
 							<td>{{ farm.mp |round(1, 'floor')}}</td>
 							<td>{{ farm.wf |round(1, 'floor')}}</td>
 							<td>{{ farm.tc }}</td>

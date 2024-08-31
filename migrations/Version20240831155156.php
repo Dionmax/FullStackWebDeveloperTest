@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240829231947 extends AbstractMigration
+final class Version20240831155156 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -23,7 +23,7 @@ final class Version20240829231947 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE cow_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE farm_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE veterinarian_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE cow (id INT NOT NULL, farm_id INT NOT NULL, milk_production DOUBLE PRECISION NOT NULL, weekly_feed DOUBLE PRECISION NOT NULL, weight DOUBLE PRECISION NOT NULL, birth DATE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE cow (id INT NOT NULL, farm_id INT NOT NULL, milk_production DOUBLE PRECISION NOT NULL, weekly_feed DOUBLE PRECISION NOT NULL, weight DOUBLE PRECISION NOT NULL, birth DATE NOT NULL, slaughtered BOOLEAN NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_99D43F9C65FCFA0D ON cow (farm_id)');
         $this->addSql('CREATE TABLE farm (id INT NOT NULL, name VARCHAR(255) NOT NULL, size DOUBLE PRECISION NOT NULL, manager VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_5816D0455E237E06 ON farm (name)');
