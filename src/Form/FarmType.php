@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Farm;
 use App\Entity\Veterinarian;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -29,6 +30,9 @@ class FarmType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Farm::class,
+            'constraints' => [
+                new UniqueEntity(['fields' => 'name'])
+            ]
         ]);
     }
 }

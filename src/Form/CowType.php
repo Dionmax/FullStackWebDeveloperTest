@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Cow;
 use App\Entity\Farm;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,6 +33,9 @@ class CowType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Cow::class,
+            'constraints' => [
+                new UniqueEntity(['fields' => 'id']),
+            ],
         ]);
     }
 }

@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 {{ include('base.html.twig') }}
 
 <html lang="en">
@@ -10,15 +8,28 @@
 		{{ knp_pagination_rel_links(pagination) }}
 	</head>
 	<body>
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success" role="alert">
+				<h4 class="alert-heading">{{ message }}</h4>
+			</div>
+		{% endfor %}
+
+		{% for message in app.flashes('error') %}
+			<div class="alert alert-danger" role="alert">
+				<h4 class="alert-heading">{{ message }}</h4>
+			</div>
+		{% endfor %}
+
 		<div class="container mt-5">
 			<h2 class="mb-4">Farm Report</h2>
 			<div class="container">
 				<div class="row">
 					<div class="col">
 						<div class="d-flex flex-row bd-highlight mb-3">
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="">
+							<a href="{{ path('app_farm_new') }}" class="btn btn-primary">
 								Add Farm
-							</button>
+							</a>
 						</div>
 					</div>
 					<div class="col">
@@ -51,23 +62,23 @@
 						<th scope="col">{{ knp_pagination_sortable(pagination, 'Farm name', 'f.name') }}</th>
 						<th scope="col">{{ knp_pagination_sortable(pagination, 'Size of Farm', 'f.size') }}</th>
 						<th scope="col">{{ knp_pagination_sortable(pagination, 'Manager', 'f.manager') }}</th>
-						<th scope="col">{{ knp_pagination_sortable(pagination, 'Total Cows', 'c.cc') }}</th>
-						<th scope="col">{{ knp_pagination_sortable(pagination, 'Cows Slaughtered', 'c.ccs') }}</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for farm in pagination %}
 						<tr>
 							<th scope="row">
-								<a href="{{ path('farm_edit', { 'id': farm.id }) }}" class="btn btn-primary">Edit</a>
-								<a href="{{ path('farm_delete', { 'id': farm.id }) }}" class="btn btn-danger">Delete</a>
+								<a href="{{ path('app_farm_show', {'id': farm.id}) }}" class="btn btn-primary">Show</a>
+								<a href="{{ path('app_farm_edit', {'id': farm.id}) }}" class="btn btn-warning">Edit</a>
 							</th>
 							<td>{{ farm.id }}</td>
 							<td>{{ farm.name }}</td>
 							<td>{{ farm.size }}</td>
 							<td>{{ farm.manager }}</td>
-							<td>{{ farm.cc }}</td>
-							<td>{{ farm.ccs }}</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="5">no records found</td>
 						</tr>
 					{% endfor %}
 				</tbody>
@@ -79,4 +90,4 @@
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 	</body>
-</html></body></html>
+</html>

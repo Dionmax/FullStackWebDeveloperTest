@@ -1,42 +1,13 @@
-<!DOCTYPE html>
+{% include 'base.html.twig' %}
 
-{{ include('base.html.twig') }}
+<body>
+	<div class="container mt-5">
+		<h1>Create new Farm</h1>
 
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Edit Farm</title>
-	</head>
-	<body>
-		<div class="container mt-5">
-			<form method="post">
-				<div class="mb-3">
-					<label for="name">
-						<h5>
-							Farm Name
-						</h5>
-					</label>
-					<input type="text" class="form-control" id="name" name="name" value="{{ farm.name }}">
-				</div>
-				<div class="mb-3">
-					<label for="size">
-						<h5>
-							Size of Farm
-						</h5>
-					</label>
-					<input type="text" class="form-control" id="size" name="size" value="{{ farm.size }}">
-				</div>
-				<div class="mb-3">
-					<label for="manager">
-						<h5>
-							Manager
-						</h5>
-					</label>
-					<input type="text" class="form-control" id="manager" name="manager" value="{{ farm.manager }}">
-				</div>
-				<button type="submit" class="btn btn-primary">Submit</button>
-			</form>
+		{{ include('farm/_form.html.twig') }}
+
+		<div style="display: flex; margin-top: 20px;">
+			<a href="{{ path('app_farm_index') }}" class="btn btn-primary">back to list</a>
 		</div>
-	</body>
-</html>
+	</div>
+</body>
