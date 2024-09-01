@@ -1,0 +1,91 @@
+{{ include('base.html.twig') }}
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Veterinarian</title>
+		{{ knp_pagination_rel_links(pagination) }}
+	</head>
+	<body>
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success" role="alert">
+				<h4 class="alert-heading">{{ message }}</h4>
+			</div>
+		{% endfor %}
+
+		{% for message in app.flashes('error') %}
+			<div class="alert alert-danger" role="alert">
+				<h4 class="alert-heading">{{ message }}</h4>
+			</div>
+		{% endfor %}
+
+		<div class="container mt-5">
+			<h2 class="mb-4">Veterinarian Report</h2>
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="d-flex flex-row bd-highlight mb-3">
+							<a href="{{ path('app_veterinarian_new') }}" class="btn btn-primary">
+								Add Veterinarian
+							</a>
+						</div>
+					</div>
+					<div class="col">
+						<div class="d-flex flex-row-reverse bd-highlight">
+							<div class="d-flex flex-row bd-highlight mb-3">
+								<h6 class="p-2 bd-highlight">
+									Filter by Veterinarian name:
+								</h6>
+								<div>{{ knp_pagination_filter(pagination, {'v.name': 'Name'}) }}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="count">
+						<h6>
+							Total Veterinarian:
+							{{ pagination.getTotalItemCount }}
+						</h6>
+					</div>
+				</div>
+			</div>
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Actions</th>
+						<th scope="col">{{ knp_pagination_sortable(pagination, 'Id', 'v.id') }}</th>
+						<th scope="col">{{ knp_pagination_sortable(pagination, 'Veterinarian name', 'v.name') }}</th>
+                        <th scope="col">{{ knp_pagination_sortable(pagination, 'CRMV', 'v.crmv') }}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for veterinarian in pagination %}
+						<tr>
+							<th scope="row">
+								<a href="{{ path('app_veterinarian_show', {'id': veterinarian.id}) }}" class="btn btn-primary">Show</a>
+								<a href="{{ path('app_veterinarian_edit', {'id': veterinarian.id}) }}" class="btn btn-warning">Edit</a>
+							</th>
+							<td>{{ veterinarian.id }}</td>
+							<td>{{ veterinarian.name }}</td>
+                            <td>{{ veterinarian.crmv }}</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="5">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<div class="navigation">
+				{{ knp_pagination_render(pagination) }}
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+	</body>
+</html>

@@ -16,28 +16,12 @@ class VeterinarianRepository extends ServiceEntityRepository
         parent::__construct($registry, Veterinarian::class);
     }
 
-    //    /**
-    //     * @return Veterinarian[] Returns an array of Veterinarian objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('v')
-    //            ->andWhere('v.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('v.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Veterinarian
-    //    {
-    //        return $this->createQueryBuilder('v')
-    //            ->andWhere('v.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findAllVeterinarian()
+    {
+        return $this->createQueryBuilder('v')
+            ->select('v.id', 'v.name', 'v.crmv')
+            ->getQuery()
+            ->getDQL()
+        ;
+    }
 }
