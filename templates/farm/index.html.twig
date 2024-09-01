@@ -1,20 +1,82 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
 
-{% block title %}Hello FarmController!{% endblock %}
+{{ include('base.html.twig') }}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/src/Controller/FarmController.php</code></li>
-        <li>Your template at <code>/var/www/templates/farm/index.html.twig</code></li>
-    </ul>
-</div>
-{% endblock %}
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Farm</title>
+		{{ knp_pagination_rel_links(pagination) }}
+	</head>
+	<body>
+		<div class="container mt-5">
+			<h2 class="mb-4">Farm Report</h2>
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="d-flex flex-row bd-highlight mb-3">
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="">
+								Add Farm
+							</button>
+						</div>
+					</div>
+					<div class="col">
+						<div class="d-flex flex-row-reverse bd-highlight">
+							<div class="d-flex flex-row bd-highlight mb-3">
+								<h6 class="p-2 bd-highlight">
+									Filter by Farm name:
+								</h6>
+								<div>{{ knp_pagination_filter(pagination, {'f.name': 'Name'}) }}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="count">
+						<h6>
+							Total farms:
+							{{ pagination.getTotalItemCount }}
+						</h6>
+					</div>
+				</div>
+			</div>
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Actions</th>
+						<th scope="col">{{ knp_pagination_sortable(pagination, 'Id', 'f.id') }}</th>
+						<th scope="col">{{ knp_pagination_sortable(pagination, 'Farm name', 'f.name') }}</th>
+						<th scope="col">{{ knp_pagination_sortable(pagination, 'Size of Farm', 'f.size') }}</th>
+						<th scope="col">{{ knp_pagination_sortable(pagination, 'Manager', 'f.manager') }}</th>
+						<th scope="col">{{ knp_pagination_sortable(pagination, 'Total Cows', 'c.cc') }}</th>
+						<th scope="col">{{ knp_pagination_sortable(pagination, 'Cows Slaughtered', 'c.ccs') }}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for farm in pagination %}
+						<tr>
+							<th scope="row">
+								<a href="{{ path('farm_edit', { 'id': farm.id }) }}" class="btn btn-primary">Edit</a>
+								<a href="{{ path('farm_delete', { 'id': farm.id }) }}" class="btn btn-danger">Delete</a>
+							</th>
+							<td>{{ farm.id }}</td>
+							<td>{{ farm.name }}</td>
+							<td>{{ farm.size }}</td>
+							<td>{{ farm.manager }}</td>
+							<td>{{ farm.cc }}</td>
+							<td>{{ farm.ccs }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<div class="navigation">
+				{{ knp_pagination_render(pagination) }}
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+	</body>
+</html></body></html>

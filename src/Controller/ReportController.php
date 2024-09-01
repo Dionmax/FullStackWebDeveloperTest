@@ -27,11 +27,9 @@ class ReportController extends AbstractController
             $request->query->getInt('page', 1),
             5
         );
-        ###
 
         return $this->render('report/index.html.twig', [
-            'pagination' => $paginataion,
-            'defaultFilterFields' => ['f.name'],
+            'pagination' => $paginataion
         ]);
     }
 

@@ -1,18 +1,50 @@
-<table class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            {% for header in headers %}
-                <th scope="col">{{ knp_pagination_sortable(pagination, '', '') }}</th>
-            {% endfor %}
-        </tr>
-    </thead>
-    <tbody>
-        {% for row in rows %}
-            <tr>
-                {% for cell in row %}
-                    <td>{{ cell }}</td>
-                {% endfor %}
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="container mt-5">
+	<h2 class="mb-4">{{ title }}</h2>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="count">
+					<h6>
+						Total
+						{{ title }}:
+						{{ pagination.getTotalItemCount }}
+					</h6>
+				</div>
+			</div>
+			<div class="col">
+				<div class="d-flex flex-row-reverse bd-highlight">
+					<div class="d-flex flex-row bd-highlight mb-3">
+						<h6 class="p-2 bd-highlight">
+							Filter by
+							{{ filter['name'] }}:
+						</h6>
+						<div>{{ knp_pagination_filter(pagination, {filter['col']: filter['name'],}) }}</div>
+
+						{% for header in headers %}
+							<th scope="col">{{ knp_pagination_sortable(pagination, header['name'], header['col']) }}</th>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<th scope="col">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for farm in pagination %}
+				<tr>
+					{% for row in rows %}
+						<td>{{ farm[row] }}</td>
+					{% endfor %}
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<div class="navigation">
+		{{ knp_pagination_render(pagination) }}
+	</div>
+</div>

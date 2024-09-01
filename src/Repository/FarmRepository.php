@@ -16,6 +16,18 @@ class FarmRepository extends ServiceEntityRepository
         parent::__construct($registry, Farm::class);
     }
 
+    public function findAllFarm()
+    {
+        return $this->createQueryBuilder('f')
+            ->select('f.id', 'f.name', 'f.size', 'f.manager')
+            ->leftJoin('f.cows', 'c')
+            ->addSelect('(select count(c1.id) from App\Entity\Cow c1 where c1.farm = f.id and c1.Slaughtered = false) as cc')
+            ->addSelect('(select count(c2.id) from App\Entity\Cow c2 where c2.farm = f.id and c2.Slaughtered = true) as ccs')
+            ->groupBy('f.id')
+            ->getQuery()
+            ->getDQL();
+    }
+
     public function findAllBasicInformation()
     {
         return $this->createQueryBuilder('f')

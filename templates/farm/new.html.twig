@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+{{ include('base.html.twig') }}
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Edit Farm</title>
+	</head>
+	<body>
+		<div class="container mt-5">
+			<form method="post">
+				<div class="mb-3">
+					<label for="name">
+						<h5>
+							Farm Name
+						</h5>
+					</label>
+					<input type="text" class="form-control" id="name" name="name" value="{{ farm.name }}">
+				</div>
+				<div class="mb-3">
+					<label for="size">
+						<h5>
+							Size of Farm
+						</h5>
+					</label>
+					<input type="text" class="form-control" id="size" name="size" value="{{ farm.size }}">
+				</div>
+				<div class="mb-3">
+					<label for="manager">
+						<h5>
+							Manager
+						</h5>
+					</label>
+					<input type="text" class="form-control" id="manager" name="manager" value="{{ farm.manager }}">
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+	</body>
+</html>
