@@ -1,0 +1,95 @@
+{{ include('base.html.twig') }}
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Cow</title>
+		{{ knp_pagination_rel_links(pagination) }}
+	</head>
+	<body>
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success" role="alert">
+				<h4 class="alert-heading">{{ message }}</h4>
+			</div>
+		{% endfor %}
+
+		{% for message in app.flashes('error') %}
+			<div class="alert alert-danger" role="alert">
+				<h4 class="alert-heading">{{ message }}</h4>
+			</div>
+		{% endfor %}
+
+		<div class="container mt-5">
+			<h2 class="mb-4">Cow Report</h2>
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="d-flex flex-row bd-highlight mb-3">
+							<a type="button" class="btn btn-primary" href="{{ path('app_cow_new') }}">
+								Add Cow
+							</a>
+						</div>
+					</div>
+					<div class="col">
+						<div class="d-flex flex-row-reverse bd-highlight">
+							<div class="d-flex flex-row bd-highlight mb-3">
+								<h6 class="p-2 bd-highlight">
+									Filter by Cow Id:
+								</h6>
+								<div>{{ knp_pagination_filter(pagination, {'c.id': 'id'}) }}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="count">
+						<h6>
+							Total cows:
+							{{ pagination.getTotalItemCount }}
+						</h6>
+					</div>
+				</div>
+			</div>
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Actions</th>
+						<th scope="col">{{ knp_pagination_sortable(pagination, 'Id', 'c.id') }}</th>
+						<th scope="col">{{ knp_pagination_sortable(pagination, 'Milk Production', 'c.milkProduction') }}</th>
+						<th scope="col">{{ knp_pagination_sortable(pagination, 'Weekly Feed', 'c.weeklyFeed') }}</th>
+						<th scope="col">{{ knp_pagination_sortable(pagination, 'Weight', 'c.weight') }}</th>
+						<th scope="col">{{ knp_pagination_sortable(pagination, 'Years', 'c.birth') }}</th>
+						<th scope="col">{{ knp_pagination_sortable(pagination, 'Slaughtered', 'c.Slaughtered') }}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for cow in pagination %}
+						<tr>
+							<td>
+								<a href="{{ path('app_cow_show', {'id': cow.id}) }}" class="btn btn-primary">Show</a>
+								<a href="{{ path('app_cow_edit', {'id': cow.id}) }}" class="btn btn-primary">Edit</a>
+							</td>
+							<td>{{ cow.id }}</td>
+							<td>{{ cow.milkProduction }}</td>
+							<td>{{ cow.weeklyFeed }}</td>
+							<td>{{ cow.weight }}</td>
+							<td>{{ cow.birth | round(1, 'floor') }}</td>
+							<td>{{ cow.Slaughtered ? 'Yes' : 'No' }}</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="7">No records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<div class="navigation">
+				{{ knp_pagination_render(pagination) }}
+			</div>
+		</div>
+	</body>
+</html>

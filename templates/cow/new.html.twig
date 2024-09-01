@@ -1,0 +1,13 @@
+{% include 'base.html.twig' %}
+
+<body>
+	<div class="container mt-5">
+		<h1>Create new Cow</h1>
+
+		{{ include('cow/_form.html.twig') }}
+
+		<div style="display: flex; margin-top: 20px;">
+			<a href="{{ path('app_cow_index') }}" class="btn btn-primary">back to list</a>
+		</div>
+	</div>
+</body>

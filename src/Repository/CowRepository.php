@@ -16,6 +16,14 @@ class CowRepository extends ServiceEntityRepository
         parent::__construct($registry, Cow::class);
     }
 
+    public function findAllCows()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c.id', 'c.milkProduction', '((CURRENT_DATE() - c.birth) / 365.00) as birth', 'c.weeklyFeed', 'c.weight', 'c.Slaughtered')
+            ->getQuery()
+            ->getDQL();
+    }
+
     public function findAllCowsForSlaughter(int $farmId)
     {
         return $this->createQueryBuilder('c')

@@ -67,8 +67,6 @@ class FarmController extends AbstractController
             return $this->redirectToRoute('farm_index');
         }
 
-        dump($form); die;
-
         return $this->render('farm/new.html.twig', [
             'form' => $form->createView()
         ]);

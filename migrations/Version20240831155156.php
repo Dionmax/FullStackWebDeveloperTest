@@ -20,9 +20,9 @@ final class Version20240831155156 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SEQUENCE cow_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE farm_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE veterinarian_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE cow_id_seq INCREMENT BY 1 MINVALUE 1 START 1001');
+        $this->addSql('CREATE SEQUENCE farm_id_seq INCREMENT BY 1 MINVALUE 1 START 11');
+        $this->addSql('CREATE SEQUENCE veterinarian_id_seq INCREMENT BY 1 MINVALUE 1 START 101');
         $this->addSql('CREATE TABLE cow (id INT NOT NULL, farm_id INT NOT NULL, milk_production DOUBLE PRECISION NOT NULL, weekly_feed DOUBLE PRECISION NOT NULL, weight DOUBLE PRECISION NOT NULL, birth DATE NOT NULL, slaughtered BOOLEAN NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_99D43F9C65FCFA0D ON cow (farm_id)');
         $this->addSql('CREATE TABLE farm (id INT NOT NULL, name VARCHAR(255) NOT NULL, size DOUBLE PRECISION NOT NULL, manager VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
